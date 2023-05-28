@@ -3,8 +3,7 @@ import pandas as pd
 
 def MatJacobiSeid(A, b, x0, Tol, niter, method):
     """
-    Jacobi and Gauss-Seidel iterative methods to find solutions for systems of equations using infinite norm to calculate error.
-
+Jacobi and Gauss-Seidel iterative methods to find solutions for systems of equations using infinite norm to calculate error.
     Parameters:
     - A: 2D numpy array, the coefficient matrix.
     - b: 2D numpy array, the independent vector.
@@ -56,8 +55,12 @@ def MatJacobiSeid(A, b, x0, Tol, niter, method):
     print("The intermediate values for the solution are:")
     print(df)
 
-A = np.array(([45, 13, 4, 8], [-5, -28, 4, -14], [9, 15, 63, -7], [2, 3, -8, -42])) #Define matrix A with syntax = ([a11, a12, a13], [a21, a22, a23], ...)
-b = np.array(([-25], [82], [75], [-43])) #Define matrix b with syntax = ([b11], [b21], [b31])
-x0 = np.array(([2], [2], [2], [2])) #Define initial condition with syntax = ([11], [21], [31])
+A = np.array(([(1/1160)+1, 0, -1/1160, 1/1160],
+              [1.225*18.5, -1.225*15.165*0.0292*185+1e-6, 0, 0],
+              [1/1160, 0, 1, -1/1160],
+              [1, 0, 0, -1-1e-6])) #Define matrix A with syntax = ([a11, a12, a13], [a21, a22, a23], ...)
+b = np.array(([300], [5], [185], [133])) #Define matrix b with syntax = ([b11], [b21], [b31])
+x0 = np.array(([1], [1], [1], [1])) #Define initial condition with syntax = ([11], [21], [31])
 
-MatJacobiSeid(A, b, x0, 1e-6, 100, 0)  # Using Jacobi method
+MatJacobiSeid(A, b, x0, 0.5e-5, 100, 0)  # Using Jacobi method
+
