@@ -3,7 +3,7 @@ import pandas as pd
 
 def SOR(A, b, x0, Tol, niter, w):
     """
-    Solve a system of equations using the Successive Over-Relaxation (SOR) method.
+    Solve a system of equations using the Successive Over-Relaxation (SOR) method using infinite norm to calculate error.
 
     Parameters:
     - A: 2D numpy array, the coefficient matrix.
@@ -32,7 +32,7 @@ def SOR(A, b, x0, Tol, niter, w):
         T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
         C = w * np.linalg.inv(D - w * L) @ b
         x1 = T @ x + C
-        error = np.linalg.norm(x1 - x)
+        error = np.linalg.norm(x1 - x, np.inf)
         itemsol = [item for sublist in x1.tolist() for item in sublist]
         itemsol.append(error)
         df.loc[n] = itemsol
@@ -47,8 +47,11 @@ def SOR(A, b, x0, Tol, niter, w):
     print("The intermediate values for the solution are:")
     print(df)
 
-A = np.array([[45, 13, 4, 8], [-5, -28, 4, -14], [9, 15, 63, -7], [2, 3, -8, -42]])
-b = np.array([[-25], [82], [75], [-43]])
-x0 = np.array([[2], [2], [2], [2]])
+A = np.array(([(1/1160)+1, 0, -1/1160, 1/1160],
+              [1.225*18.5, -1.225*15.165*0.0292*185+1e-6, 0, 0],
+              [1/1160, 0, 1, -1/1160],
+              [1, 0, 0, -1-1e-6])) #Define matrix A with syntax = ([a11, a12, a13], [a21, a22, a23], ...)
+b = np.array(([300], [5], [185], [133])) #Define matrix b with syntax = ([b11], [b21], [b31])
+x0 = np.array(([1], [1], [1], [1])) #Define initial condition with syntax = ([11], [21], [31])
 
-SOR(A, b, x0, 1e-6, 100, 1)
+SOR(A, b, x0, 0.5e-5, 100, 1)
