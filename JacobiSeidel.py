@@ -3,7 +3,7 @@ import pandas as pd
 
 def MatJacobiSeid(A, b, x0, Tol, niter, method):
     """
-    Jacobi and Gauss-Seidel iterative methods to find solutions for systems of equations.
+    Jacobi and Gauss-Seidel iterative methods to find solutions for systems of equations using infinite norm to calculate error.
 
     Parameters:
     - A: 2D numpy array, the coefficient matrix.
@@ -41,7 +41,7 @@ def MatJacobiSeid(A, b, x0, Tol, niter, method):
         else:
             raise ValueError("Invalid method. Use 0 for Jacobi or 1 for Gauss-Seidel.")
 
-        error = np.linalg.norm(x1 - x)  # Calculate error
+        error = np.linalg.norm(x1 - x, np.inf)  # Calculate error
         itemsol = [item for sublist in x.tolist() for item in sublist]  # Convert numpy array to list
         itemsol.append(error)  # Append error
         df.loc[n] = itemsol  # Append to DataFrame
